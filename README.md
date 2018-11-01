@@ -18,4 +18,4 @@ Basic application web with mongoose.
 
 ### GIT ###
 
-* Git repository:nhttps://github.com/GatoSnake/app-web-nodejs.git
+* Git repository: https://github.com/GatoSnake/app-web-nodejs.git
