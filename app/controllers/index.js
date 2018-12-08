@@ -1,23 +1,25 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
+
+const express = require('express');
+const router = express.Router();
 
 const config = rootRequire('./config/');
 const logger = rootRequire('./config/logger');
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.render('index', {
     title: 'Basic app'
   });
 });
 
 /* Login page */
-router.get('/login', (req, res, next) => {
+router.get('/login', (req, res) => {
   res.render('login');
 });
 
 /* Authentication user */
-router.post('/login', (req, res, next) => {
+router.post('/login', (req, res) => {
   let data = req.body;
   if (data.email === 'admin@admin.com' && data.password === 'admin') {
     req.session.auth = true;
@@ -29,13 +31,13 @@ router.post('/login', (req, res, next) => {
 });
 
 /* Logout auth. */
-router.get('/logout', (req, res, next) => {
+router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
 
 /* GET home page. */
-router.get('/home', (req, res, next) => {
+router.get('/home', (req, res) => {
   res.render('home');
 });
 

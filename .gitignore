@@ -1,4 +1,4 @@
 node_modules
 package-lock.json
-app.log
-error.log
+logs/app.log
+logs/error.log

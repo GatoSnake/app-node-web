@@ -1,15 +1,19 @@
-const index = require('../app/routes/index');
+'use strict';
+
+const index = rootRequire('./app/controllers/index');
+const logger = rootRequire('./config/logger');
 
 module.exports = (app) => {
+  logger.info('Initializing routes ...');
 
   // Check authentication user
-  app.all('*', checkAuth);
+  //app.all('*', checkAuth);
 
   //all routes
   app.use('/', index);
 
   // Function verify if user is authenticated
-  function checkAuth(req, res, next) {
+  const checkAuth = (req, res, next) => {
     if (process.env.NODE_ENV === 'development' && req.path.startsWith('/test', 0)) {
       next();
     } else if (req.path === '/' || req.path === '/login') {
@@ -29,14 +33,14 @@ module.exports = (app) => {
   }
 
   // catch 404 and forward to error handler
-  app.use(function(req, res, next) {
+  app.use((req, res, next) => {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
   });
 
   // error handler
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = process.env.NODE_ENV === 'development' ? err : {};

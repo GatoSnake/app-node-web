@@ -1,8 +1,10 @@
+'use strict';
+
 const path = require('path');
 const development = require('./env/development');
 const production = require('./env/production');
 const defaults = {
-  root: path.normalize(__dirname + '/..')
+  root: __pathbase()
 };
 
 module.exports = {

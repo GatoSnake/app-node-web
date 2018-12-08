@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+'use strict';
 
-var userSchema = new Schema({
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({
   email: String,
   name: String,
   lastname: String,
@@ -19,7 +21,7 @@ var userSchema = new Schema({
 
 userSchema.methods = {};
 
-userSchema.statics = {}
+userSchema.statics = {};
 
 const User = mongoose.model('User', userSchema);
 
