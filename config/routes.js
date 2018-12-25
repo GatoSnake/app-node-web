@@ -1,48 +1,47 @@
 'use strict';
 
-const index = rootRequire('./app/controllers/index');
-const logger = rootRequire('./config/logger');
+const index = rootRequire('./app/routes/index');
+const data = rootRequire('./app/routes/api/data');
+const files = rootRequire('./app/routes/api/files');
 
 module.exports = (app) => {
   logger.info('Initializing routes ...');
 
-  // Check authentication user
-  //app.all('*', checkAuth);
+  // ****** ROUTES ******
 
-  //all routes
   app.use('/', index);
+  app.use('/api/data', data);
+  app.use('/api/files', files);
 
-  // Function verify if user is authenticated
-  const checkAuth = (req, res, next) => {
-    if (process.env.NODE_ENV === 'development' && req.path.startsWith('/test', 0)) {
-      next();
-    } else if (req.path === '/' || req.path === '/login') {
-      if (req.session.auth) {
-        res.redirect('/home');
-      } else
-        next();
-    } else {
-      if (!req.session.auth) {
-        // console.log(`User is not authenticated!. Redirect to path "/".`);
-        req.session.destroy();
-        res.redirect('/');
-      } else {
-        next();
-      }
-    }
-  }
+  // ****** CUSTOM MIDDLEWARES ******
 
-  // catch 404 and forward to error handler
+  //error 404 handler
   app.use((req, res, next) => {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
   });
 
+  //logger error
+  app.use((err, req, res, next) => {
+    logger.error(err.stack);
+    next(err);
+  });
+
+  //detect type client error
+  app.use((err, req, res, next) => {
+    if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+      res.status(500).json({ error: err.message });
+    } else {
+      next(err);
+    }
+  });
+
   // error handler
   app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
+    res.locals.status = err.status;
     res.locals.error = process.env.NODE_ENV === 'development' ? err : {};
 
     // render the error page

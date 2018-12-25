@@ -1,6 +1,13 @@
 module.exports = {
   session: {
-    secret: 'f568d5fc-df73-4a67-ba12-e1fdba9190c3'
+    secret: 'abc123'
   },
-  db: 'mongodb://<user>:<pass>@<ip>:<post>/<name-bd>'
+  db: {
+    url: 'mongodb://<user>:<password>@<ip>:<post>',
+    dbName: '<db-name>'
+  },
+  temp: {
+    uploads: '/temp/',
+    downloads: '/temp/'
+  }
 };
