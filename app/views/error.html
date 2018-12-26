@@ -18,7 +18,13 @@
 </head>
 
 <body>
-  <h1 class="text-center">Hello <%= title %>!</h1>
+  <h1 class="text-center">ERROR <%= status %></h1>
+  <p>
+    <%= message %>
+  </p>
+  <p>
+    <%= error.stack %>
+  </p>
   <!-- jQuery -->
   <script src="//code.jquery.com/jquery.js"></script>
   <!-- Bootstrap JavaScript -->

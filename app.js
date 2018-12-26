@@ -7,11 +7,12 @@ const app = express();
 
 // Global functions
 global.rootRequire = (pathfile) => require(__dirname + '/' + pathfile);
-global.__pathbase = (pathfile) => pathfile ? path.join(__dirname, pathfile): __dirname;
+global._pathbase = (pathfile) => pathfile ? path.join(__dirname, pathfile) : __dirname;
 
-// Bootstrap routes
-require('./config/logger');
-require('./config/mongoose')();
+// Bootstrap app
+require('./config/');
+require('./config/logger')();
+require('./config/mongo')(app);
 require('./config/middlewares')(app);
 require('./config/routes')(app);
 

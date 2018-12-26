@@ -8,8 +8,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const ejs = require('ejs');
-const config = require('./');
-const logger = rootRequire('./config/logger');
 
 module.exports = (app) => {
   logger.info('Initializing middlewares ...');
@@ -21,7 +19,7 @@ module.exports = (app) => {
 
   //Middleware: session
   app.use(session({
-    secret: config.session.secret,
+    secret: _config.session.secret,
     resave: false,
     saveUninitialized: false
   }));
